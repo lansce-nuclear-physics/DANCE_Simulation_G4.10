@@ -52,8 +52,8 @@ G4double BaF_C_front_th2;			//=0.0977372/2.*RI; // thickness of the left part
 G4double BaF_C_front_th3;			//=0.028076016/2.*RI; // thickness of the right part 
 
 
-G4double BaF_C_front_height1;			//=0.19423*sin(59.7*deg)*RI;
-G4double BaF_C_front_height2;			//0.16622*cos(9.7*deg)*RI;
+G4double BaF_C_front_height1;			//=0.19423*sin(59.7*CLHEP::deg)*RI;
+G4double BaF_C_front_height2;			//0.16622*cos(9.7*CLHEP::deg)*RI;
 
 
 G4double BaF_C_frontdist;			//=17.*cm; //BaF_frontdist;
@@ -132,15 +132,15 @@ C_crystal(G4double a1,G4double a2,G4double a3,G4double a4,G4double a5,G4double a
 
 
 // shifting focus of the crystal
-	mid_pPhi=90*deg;
-	mid_pTheta=(atan(0.5*frontshift_C/(BaF_C_frontdist/2.)))*rad;
+	mid_pPhi=90*CLHEP::deg;
+	mid_pTheta=(atan(0.5*frontshift_C/(BaF_C_frontdist/2.)))*CLHEP::rad;
 
 
 	mid_trans=-2*BaF_C_length*tan(mid_pTheta);
 // left part of the crystal C dimensions
 
 	left_pDz1=BaF_C_length;
-	left_pPhi1=-90*deg;
+	left_pPhi1=-90*CLHEP::deg;
  
 	left_pDy1=BaF_C_front_th2;
 	left_pDx1=0.01; 
@@ -152,14 +152,14 @@ C_crystal(G4double a1,G4double a2,G4double a3,G4double a4,G4double a5,G4double a
 	left_pDx4=BaF_C_back_height1;
 	left_pAlp2=0.;
 
-	left_pTheta1=atan(-0.5*(left_pDy1-left_pDy2+mid_pDy1-mid_pDy2-mid_trans)/BaF_C_length)*rad;
+	left_pTheta1=atan(-0.5*(left_pDy1-left_pDy2+mid_pDy1-mid_pDy2-mid_trans)/BaF_C_length)*CLHEP::rad;
 	left_trans=-0.5*(left_pDy2+left_pDy1+mid_pDy2+mid_pDy1)-mid_trans;
 
 
 ///// ADD right piece
 
 	right_pDz1=BaF_C_length;
-	right_pPhi1=90.*deg;
+	right_pPhi1=90.*CLHEP::deg;
  
 	right_pDy1=BaF_C_front_th3;
 	right_pDx1=BaF_C_front_height2; 
@@ -171,7 +171,7 @@ C_crystal(G4double a1,G4double a2,G4double a3,G4double a4,G4double a5,G4double a
 	right_pDx4=(BaF_C_ratio*0.01);
 	right_pAlp2=0.;
 
-	right_pTheta1=atan(0.5*(right_pDy2-right_pDy1+mid_pDy2-mid_pDy1-mid_trans)/BaF_C_length)*rad;
+	right_pTheta1=atan(0.5*(right_pDy2-right_pDy1+mid_pDy2-mid_pDy1-mid_trans)/BaF_C_length)*CLHEP::rad;
 	right_trans=0.5*(right_pDy2+right_pDy1+mid_pDy2+mid_pDy1)-mid_trans;;
 };
 

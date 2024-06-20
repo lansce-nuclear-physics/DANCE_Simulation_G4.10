@@ -55,6 +55,7 @@
 #include "G4RunManager.hh"
 
 using namespace std;
+using namespace CLHEP;
 
 DANCEPrimaryGeneratorAction::DANCEPrimaryGeneratorAction()
 {

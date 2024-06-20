@@ -131,6 +131,7 @@
 #include "DANCEGlobal.hh"
 
 using namespace std;
+using namespace CLHEP;
 
 extern int A_counter,B_counter,C_counter,D_counter;
 
@@ -221,15 +222,16 @@ G4VPhysicalVolume* DANCEDetectorConstruction::Construct()
 //									//
 //______________________________________________________________________//
 
+// commenting out unused materials to try and fix null pointer error
   G4Material* BaF = man->FindOrBuildMaterial("G4_BARIUM_FLUORIDE");
   G4Material* Vacuum = man->FindOrBuildMaterial("G4_Galactic");
-  G4Material* Teflon = man->FindOrBuildMaterial("G4_TEFLON");
+//  G4Material* Teflon = man->FindOrBuildMaterial("G4_TEFLON");
   G4Material* Al = man->FindOrBuildMaterial("G4_Al");
-  G4Material* Ti = man->FindOrBuildMaterial("G4_Ti");
-  G4Material* Mylar = man->FindOrBuildMaterial("G4_MYLAR");
+//  G4Material* Ti = man->FindOrBuildMaterial("G4_Ti");
+//  G4Material* Mylar = man->FindOrBuildMaterial("G4_MYLAR");
   G4Material* Air = man->FindOrBuildMaterial("G4_AIR");
   G4Material* Au = man->FindOrBuildMaterial("G4_Au");
-  G4Material* Gd = man->FindOrBuildMaterial("G4_Gd");
+//  G4Material* Gd = man->FindOrBuildMaterial("G4_Gd");
 
   // stainless steel
 	G4Element* Fe = new G4Element("Iron"  ,"Fe" , 26., 55.85*g/mole);  
@@ -240,7 +242,7 @@ G4VPhysicalVolume* DANCEDetectorConstruction::Construct()
 	ssteel->AddElement(Fe, 0.88);
 	ssteel->AddElement(Co, 0.08);
 
-  G4Material* TargetMat=new G4Material("Ysource", 1.*g/cm3, 1);
+//  G4Material* TargetMat=new G4Material("Ysource", 1.*g/cm3, 1);
   	G4Isotope* aIsotope=new G4Isotope("Sr",38,88,88*g/mole); 
 
 
@@ -273,7 +275,7 @@ G4VPhysicalVolume* DANCEDetectorConstruction::Construct()
 	  G4Element* elSi = new G4Element("Silicon", "Si", 14., 28.09*g/mole);
 
   
-  	G4Element* elLi = new G4Element("Lithium","Li" , 3., 6.015*g/mole);
+//  	G4Element* elLi = new G4Element("Lithium","Li" , 3., 6.015*g/mole);
 	G4Element* elH = new G4Element("Hydrogen" ,"H" , 1., 1.01*g/mole);
 
 //  G4Material* LiH = new G4Material("LiH",0.85*g/cm3,2);
@@ -286,9 +288,11 @@ G4VPhysicalVolume* DANCEDetectorConstruction::Construct()
   	G4Element* elLi_compound = new G4Element("Lithium_compound","Li" , 2);
 	elLi_compound->AddIsotope(Li6,96.*perCent);
 	elLi_compound->AddIsotope(Li7,4.*perCent);
+
+	G4cout << "Input LiH density is: " << GPP->LiHDensity << G4endl;	//testing GPP grabbing input values
 	
-//     	G4Material* LiH = new G4Material("LiH",0.7288*g/cm3,2);
-     	G4Material* LiH = new G4Material("LiH",GPP->LiHDensity*g/cm3,2);
+//     	G4Material* LiH = new G4Material("LiH",0.7288*g/cm3,2);			//this line was originally uncommented
+     	G4Material* LiH = new G4Material("LiH",GPP->LiHDensity*g/cm3,2);	//this line yields density=0 warning
 	LiH->AddElement(elLi_compound, 0.8572);
 	LiH->AddElement(elH, 0.1427);
 
@@ -682,8 +686,8 @@ else{
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Photomultiplier window
 
-  	G4double PMT_thick   =   1.0*mm ; // Thickness of PMT window
-  	G4double PMT_curv    =  65.5*mm ; // Radius of curvature of PMT window
+//  	G4double PMT_thick   =   1.0*mm ; // Thickness of PMT window
+//  	G4double PMT_curv    =  65.5*mm ; // Radius of curvature of PMT window
 //	G4double StartTheta  = (180.0-31.2)*pi/180. ;
 //  	G4double EndTheta    = 31.2*pi/180. ;
 

@@ -71,7 +71,7 @@ B_crystal(G4double a1,G4double a2,G4double a3,G4double a4,G4double a5,G4double a
 
 	pDz_B1=a1/2.;
 	pTheta_B1=0.;
-	pPhi_B1=90*deg;
+	pPhi_B1=90*CLHEP::deg;
  
 	pDy1_B1=a2;
 	pDx1_B1=a3;
@@ -85,11 +85,11 @@ B_crystal(G4double a1,G4double a2,G4double a3,G4double a4,G4double a5,G4double a
 	pDx4_B1=BaF_B_ratio*pDx2_B1;
 	pAlp2_B1=0.;
 
-	pTheta_B1=-atan(pDy1_B1/BaF_B_frontdist)*rad;
+	pTheta_B1=-atan(pDy1_B1/BaF_B_frontdist)*CLHEP::rad;
 
 	pDz_B2=pDz_B1;
 	pTheta_B2=0.;
-	pPhi_B2=90*deg;
+	pPhi_B2=90*CLHEP::deg;
  
 	pDy1_B2=a5; //0.1140406/2.*RI;
 	pDx1_B2=pDx2_B1;
@@ -101,7 +101,7 @@ B_crystal(G4double a1,G4double a2,G4double a3,G4double a4,G4double a5,G4double a
 	pDx4_B2=BaF_B_ratio*pDx2_B2;
 	pAlp2_B2=0.;
 
-	pTheta_B2=atan(pDy1_B2/BaF_B_frontdist)*rad;
+	pTheta_B2=atan(pDy1_B2/BaF_B_frontdist)*CLHEP::rad;
 
 	trans_loc=0.5*(pDy1_B1+pDy2_B1+pDy1_B2+pDy2_B2);
 	trans=-0.5*(pDy1_B1+pDy2_B1);

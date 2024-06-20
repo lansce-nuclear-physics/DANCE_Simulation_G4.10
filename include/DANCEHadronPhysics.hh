@@ -71,7 +71,7 @@
 #include "G4ios.hh"
 
 #include "G4VPhysicsConstructor.hh"
-#include "G4MultipleScattering.hh"
+#include "G4hMultipleScattering.hh"
 #include "G4hIonisation.hh"
 
 // Hadronic Processes
@@ -106,6 +106,14 @@
 #include "G4OmegaMinusInelasticProcess.hh"
 #include "G4AntiOmegaMinusInelasticProcess.hh"
 
+//It seems that Geant4.10 does not contain low energy or high energy models for hadron inelastic processes
+//Most of the LE and HE files will be commented out
+
+#include "G4LFission.hh"
+#include "G4HadronElastic.hh" //this replaces "G4LElastic.hh" below
+#include "G4NeutronRadCapture.hh" //this replaces "G4LCapture.hh" below
+
+/*
 // Low energy models
 #include "G4LElastic.hh"
 #include "G4LFission.hh"
@@ -161,9 +169,12 @@
 #include "G4HEAntiXiMinusInelastic.hh"
 #include "G4HEOmegaMinusInelastic.hh"
 #include "G4HEAntiOmegaMinusInelastic.hh"
+*/
 
 // Stopping processes
-#include "G4AntiProtonAnnihilationAtRest.hh"
+//Geant4.9.6 developer note states "Stopping hadrons are now handled by Bertini and Fritiof models"
+//#include "G4AntiProtonAnnihilationAtRest.hh"
+#include "G4AntiProtonAbsorptionFritiof.hh"
 #include "G4AntiNeutronAnnihilationAtRest.hh"
 
 

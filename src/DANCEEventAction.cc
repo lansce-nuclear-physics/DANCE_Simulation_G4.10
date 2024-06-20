@@ -95,6 +95,7 @@ extern int A_counter,B_counter,C_counter,D_counter;
 extern int AutoSave;
 
 using namespace std;
+using namespace CLHEP;
 
 DANCEEventAction::DANCEEventAction()
 {

@@ -75,6 +75,8 @@
 #include "G4VisAttributes.hh"
 #include "G4ios.hh"
 
+using namespace CLHEP;
+
 G4Allocator<DANCEDetectorHit> DANCEDetectorHitAllocator;
 
 DANCEDetectorHit::DANCEDetectorHit(G4int i,G4double t)

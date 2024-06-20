@@ -97,18 +97,22 @@ DANCEEMPhysics::~DANCEEMPhysics()
 
 #include "G4ProcessManager.hh"
 
-#include "G4hLowEnergyIonisation.hh"
+//#include "G4hLowEnergyIonisation.hh"
 #include "G4hIonisation.hh"
 #include "G4ionIonisation.hh"
 
 // gamma
-#include "G4LowEnergyRayleigh.hh" 
-#include "G4LowEnergyPhotoElectric.hh"
-#include "G4LowEnergyCompton.hh"  
-#include "G4LowEnergyGammaConversion.hh" 
+//#include "G4LowEnergyRayleigh.hh" 
+#include "G4RayleighScattering.hh"
+//#include "G4LowEnergyPhotoElectric.hh"
+#include "G4PhotoElectricEffect.hh"
+//#include "G4LowEnergyCompton.hh"  
+#include "G4ComptonScattering.hh"
+//#include "G4LowEnergyGammaConversion.hh" 
+#include "G4GammaConversion.hh"
 // e-
-#include "G4LowEnergyIonisation.hh" 
-#include "G4LowEnergyBremsstrahlung.hh" 
+//#include "G4LowEnergyIonisation.hh" 
+//#include "G4LowEnergyBremsstrahlung.hh" 
 // e+
 #include "G4eIonisation.hh" 
 #include "G4eBremsstrahlung.hh" 
@@ -116,14 +120,19 @@ DANCEEMPhysics::~DANCEEMPhysics()
 
 
 // Penelope physics lists
+//#include "G4PenelopeCompton.hh"
+//#include "G4PenelopeGammaConversion.hh"
+//#include "G4PenelopePhotoElectric.hh"
+//#include "G4PenelopeIonisation.hh"
+//#include "G4PenelopeBremsstrahlung.hh"
+//#include "G4PenelopeAnnihilation.hh"
 
-#include "G4PenelopeCompton.hh"
-#include "G4PenelopeGammaConversion.hh"
-#include "G4PenelopePhotoElectric.hh"
-#include "G4PenelopeIonisation.hh"
-#include "G4PenelopeBremsstrahlung.hh"
-#include "G4PenelopeAnnihilation.hh"
-
+#include "G4PenelopeComptonModel.hh"
+#include "G4PenelopeGammaConversionModel.hh"
+#include "G4PenelopePhotoElectricModel.hh"
+#include "G4PenelopeIonisationModel.hh"
+#include "G4PenelopeBremsstrahlungModel.hh"
+#include "G4PenelopeAnnihilationModel.hh"
 
 void DANCEEMPhysics::ConstructProcess()
 {
@@ -133,29 +142,30 @@ void DANCEEMPhysics::ConstructProcess()
    pManager = G4Gamma::Gamma()->GetProcessManager();
 
 //	Standard EM
-//   	pManager->AddDiscreteProcess(new G4GammaConversion());   // pair production
-//   	pManager->AddDiscreteProcess(new G4ComptonScattering());
-//   	pManager->AddDiscreteProcess(new G4PhotoElectricEffect());
+   	pManager->AddDiscreteProcess(new G4GammaConversion());   // pair production
+   	pManager->AddDiscreteProcess(new G4ComptonScattering());
+   	pManager->AddDiscreteProcess(new G4PhotoElectricEffect());
+	pManager->AddDiscreteProcess(new G4RayleighScattering());
 
 
 // 	Low Energy
-      	pManager->AddDiscreteProcess(new G4LowEnergyRayleigh);
-      	pManager->AddDiscreteProcess(new G4LowEnergyPhotoElectric);      
-      	pManager->AddDiscreteProcess(new G4LowEnergyCompton);
-      	pManager->AddDiscreteProcess(new G4LowEnergyGammaConversion);
+//      pManager->AddDiscreteProcess(new G4LowEnergyRayleigh);
+//      pManager->AddDiscreteProcess(new G4LowEnergyPhotoElectric);      
+//      pManager->AddDiscreteProcess(new G4LowEnergyCompton);
+//      pManager->AddDiscreteProcess(new G4LowEnergyGammaConversion);
 
 //	Penelope Lists
-/*
-      	pManager->AddDiscreteProcess(new G4PenelopePhotoElectric);
-      	pManager->AddDiscreteProcess(new G4PenelopeCompton);
-      	pManager->AddDiscreteProcess(new G4PenelopeGammaConversion);
-*/
+
+//      pManager->AddDiscreteProcess(new G4PenelopePhotoElectric);
+//      pManager->AddDiscreteProcess(new G4PenelopeCompton);
+//      pManager->AddDiscreteProcess(new G4PenelopeGammaConversion);
+
 
    //Electron
 	   pManager = G4Electron::Electron()->GetProcessManager();
 
 
-	   G4VProcess* theeminusMultipleScattering = new G4MultipleScattering();
+	   G4VProcess* theeminusMultipleScattering = new G4eMultipleScattering();
    		pManager->AddProcess(theeminusMultipleScattering, -1,1,1);
 //	   	pManager->SetProcessOrdering(theeminusMultipleScattering, idxAlongStep,1);
 //   		pManager->SetProcessOrdering(theeminusMultipleScattering, idxPostStep,1);
@@ -178,26 +188,45 @@ void DANCEEMPhysics::ConstructProcess()
 //   	pManager->SetProcessOrdering(theeminusBremsstrahlung,     idxPostStep,3);
 
 // low energy stuff
+// commenting out references to LowEnergy physics models, trying to rewrite for Penelope models
+//    G4LowEnergyIonisation*  loweIon  = new G4LowEnergyIonisation("LowEnergyIoni");
+//    G4eIonisation*  eIon  = new G4eIonisation("Ioni");
+//    G4eBremsstrahlung*  eBrem = new G4eBremsstrahlung("eBrem");
+//      eBrem->SetAngularGenerator("tsai");
+//      pManager->AddProcess(eIon,     -1, 2,2);
+//      pManager->AddProcess(eBrem,    -1,-1,3);
 
-    G4LowEnergyIonisation*  loweIon  = new G4LowEnergyIonisation("LowEnergyIoni");
-    G4LowEnergyBremsstrahlung*  loweBrem = new G4LowEnergyBremsstrahlung("LowEnBrem");
-      loweBrem->SetAngularGenerator("tsai");
-      pManager->AddProcess(loweIon,     -1, 2,2);
-      pManager->AddProcess(loweBrem,    -1,-1,3);      
- 
+//    G4LowEnergyBremsstrahlung*  loweBrem = new G4LowEnergyBremsstrahlung("LowEnBrem");
+//      loweBrem->SetAngularGenerator("tsai");
+//      pManager->AddProcess(loweIon,     -1, 2,2);
+//      pManager->AddProcess(loweBrem,    -1,-1,3);      
 
-// Penelope 
-/*
-      pManager->AddProcess(new G4PenelopeIonisation,        -1, 2,2);
-      pManager->AddProcess(new G4PenelopeBremsstrahlung,    -1,-1,3);
-*/
+// Standard EM Models (these work)
+    G4eBremsstrahlung* eBrem = new G4eBremsstrahlung("eBrem");
+	pManager->AddProcess(eBrem,    -1,-1,3);
+    G4eIonisation* eIon = new G4eIonisation("Ioni");
+	pManager->AddProcess(eIon,     -1,2,2);
+
+
+
+// Penelope Ionisation and Bremsstrahlung 
+//    G4PenelopeBremsstrahlungModel*  PBrem = new G4PenelopeBremsstrahlungModel(0,"PenBrem");
+//      pManager->AddProcess(eIon,        -1, 2,2);
+//      pManager->AddProcess(PBrem,    -1,-1,3);
+
+// Trying to get Penelope to work
+//    G4VProcess* PenBremsstrahlung = new G4PenelopeBremsstrahlungModel();
+//    pManager->AddProcess(PenBremsstrahlung);
+
+
+
 
    //Positron
 
    pManager = G4Positron::Positron()->GetProcessManager();
 
 
-   G4VProcess* theeplusMultipleScattering = new G4MultipleScattering();
+   G4VProcess* theeplusMultipleScattering = new G4eMultipleScattering();
    G4VProcess* theeplusIonisation         = new G4eIonisation();
    G4VProcess* theeplusBremsstrahlung     = new G4eBremsstrahlung();
    G4VProcess* theeplusAnnihilation       = new G4eplusAnnihilation();
@@ -226,11 +255,11 @@ void DANCEEMPhysics::ConstructProcess()
 
 
 // Penelope
-/*
-      pManager->AddProcess(new G4MultipleScattering,        -1, 1,1);
-      pManager->AddProcess(new G4PenelopeIonisation,        -1, 2,2);
-      pManager->AddProcess(new G4PenelopeBremsstrahlung,    -1,-1,3);
-      pManager->AddProcess(new G4PenelopeAnnihilation,       0,-1,4);
-*/
+//I'll try replacing AddProcess with AddDiscreteProcess. Update: don't do that.
+
+//      pManager->AddProcess(new G4eMultipleScattering,        -1, 1,1);
+//      pManager->AddProcess(new G4PenelopeIonisationModel,        -1, 2,2);
+//      pManager->AddProcess(new G4PenelopeBremsstrahlungModel,    -1,-1,3);
+//      pManager->AddProcess(new G4PenelopeAnnihilationModel,       0,-1,4);
 
 }

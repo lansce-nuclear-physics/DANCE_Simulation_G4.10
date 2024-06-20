@@ -46,9 +46,13 @@ name := DICEBOX_DANCE
 G4TARGET := $(name)
 G4EXLIB := true
 
-ifndef G4INSTALL
-  G4INSTALL = ../../..
-endif
+#ifndef G4INSTALL
+#  G4INSTALL = ../../..
+#endif
+
+#I defined G4INSTALL in .bashrc instead, so I am commenting this out for now.
+#above block commented out when using G4.10. Trying the following block instead to define install filepath:
+#G4INSTALL = /opt64/geant4/geant4-10.1.2/distribution/
 
 .PHONY: all
 all: lib bin

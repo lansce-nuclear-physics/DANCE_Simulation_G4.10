@@ -133,10 +133,16 @@ void DANCEGeneralPhysics::ConstructProcess()
 {
   // Add Decay Process
    G4Decay* theDecayProcess = new G4Decay();  
-  theParticleIterator->reset();
-  while( (*theParticleIterator)() ){
-    G4ParticleDefinition* particle = theParticleIterator->value();
+  // Every instance of theParticleIterator has been changed to aParticleIterator. Function defined in G4VPhysicsConstructor.hh
+  //theParticleIterator->reset();
+  //while( (*theParticleIterator)() ){
+  //  G4ParticleDefinition* particle = theParticleIterator->value();
+  //  G4ProcessManager* pmanager = particle->GetProcessManager();
+  aParticleIterator->reset();
+  while( (*aParticleIterator)() ){
+    G4ParticleDefinition* particle = aParticleIterator->value();
     G4ProcessManager* pmanager = particle->GetProcessManager();
+
     if (theDecayProcess->IsApplicable(*particle)) {
 //      particle->SetPDGLifeTime(0.);
       
