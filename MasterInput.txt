@@ -7,7 +7,7 @@ AddPrimaryGammas		false
 AddTimeOfGammas			false
 RootAutoSave			5000
 RootFile			true
-RootFileName			./Sr90_testing.root
+RootFileName			./Y88.root
 ClusterMGatedHists		true
 CrystalMGatedHists		true
 SingleGateEcrystal_1		511 keV	0.1 MeV		// set E and +-dE to gate on Crystal E
@@ -44,6 +44,6 @@ Q_energy			0.55	0.3	// Qvalue +- dQ gate Sorry units are fixed to MeV
 # here choice of the external input
 
 MacroInput			true
-MacroInputFile			Sr90.mac
+MacroInputFile			Y88.mac
 ExternalInput			false
 ExternalInputFile		196Pt_R1.txt		
