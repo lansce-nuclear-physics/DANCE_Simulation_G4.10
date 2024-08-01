@@ -238,6 +238,13 @@ f16=new TH1F("PrimaryMult","PrimaryMult",170,-0.5,169.5);
 f17=new TH1F("Scaler","Scaler",10,0,10);
 
 ECr_ID = new TH2F( "ECr_ID", "ECr_ID", 2000, 0, 20, 170, -0.5, 169.5);
+
+//adding histogram to show energies of gammas being initialized by Geant
+//plotting E_crystal_tot, all gammas should have energy 3MeV
+
+f18=new TH1F("E_no_resolution","E_no_resolution",1000,0,5);
+
+
 /*
 f20=new TH1F("EgammaCluster_M2","EgammaCluster_M2",256,0,16);
 f21=new TH1F("EgammaCluster_M3","EgammaCluster_M3",256,0,16);
@@ -596,7 +603,9 @@ void DANCEEventAction::EndOfEventAction(const G4Event* evt)
 				DANCEDetectorHit* Hit=(*DHC)[j];
 				double eDep=Hit->GetEdep();
 				time=time + Hit->GetTime();
-				
+		
+				//G4cout << i << "\t" << j << "\t" << eDep << "\n";
+		
 				E_crystal_tot+=eDep;
 				
 //				#ifdef G4ANALYSIS_USE
@@ -606,6 +615,10 @@ void DANCEEventAction::EndOfEventAction(const G4Event* evt)
 //				G4cout << "Energy Deposited: " << eDep << "	at time: " << time <<  G4endl;
 	
 			}
+
+		//fill f18 histogram to check recorded gamma energies before energy resolution is applied
+		f18->Fill(E_crystal_tot);
+
 			
 		if(time<min_time) min_time=time;
 			
@@ -1140,6 +1153,8 @@ void DANCEEventAction::RootAutoSave(){
 	f15->Write();
 	f16->Write();
 	f17->Write();
+	
+	f18->Write();
 
 	f20->Write();
 	f21->Write();

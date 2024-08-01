@@ -50,9 +50,8 @@ G4EXLIB := true
 #  G4INSTALL = ../../..
 #endif
 
-#I defined G4INSTALL in .bashrc instead, so I am commenting this out for now.
-#above block commented out when using G4.10. Trying the following block instead to define install filepath:
-#G4INSTALL = /opt64/geant4/geant4-10.1.2/distribution/
+#I defined G4INSTALL in .bashrc instead, so the above block is commented out.
+
 
 .PHONY: all
 all: lib bin

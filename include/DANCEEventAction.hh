@@ -121,6 +121,8 @@ class DANCEEventAction : public G4UserEventAction
 	TH1F *f16;
 	TH1F *f17;
 
+	TH1F *f18;
+
 	TH1F *f20;
 	TH1F *f21;
 	TH1F *f22;

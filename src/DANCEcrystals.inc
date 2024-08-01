@@ -217,8 +217,10 @@ G4Tubs *RTH=new G4Tubs("RTH",2.*cm,pRMin,0.94*inch,pSPhi,pDPhi);
 //G4Sphere* LiHSphere=new G4Sphere("LiHSphere",10.5*cm,16.0*cm,0.*deg,360.*deg,0.*deg,180.*deg);
 
 // new LiH sphere with holes
-//G4Sphere *LiHSphere=new G4Sphere("LiHSphere",10.5*cm,16.5*cm,0.*deg,360.*deg,0.*deg,180.*deg);
-G4Sphere *LiHSphere=new G4Sphere("LiHSphere",GPP->LiHInnerRadius*cm,GPP->LiHOuterRadius*cm,0.*deg,360.*deg,0.*deg,180.*deg);
+G4Sphere *LiHSphere=new G4Sphere("LiHSphere",10.5*cm,16.5*cm,0.*deg,360.*deg,0.*deg,180.*deg);	//originally commented, line below uncom.
+//G4Sphere *LiHSphere=new G4Sphere("LiHSphere",GPP->LiHInnerRadius*cm,GPP->LiHOuterRadius*cm,0.*deg,360.*deg,0.*deg,180.*deg);
+
+G4cout << "Inner and outer radii are: " << GPP->LiHInnerRadius << "  " << GPP->LiHOuterRadius << G4endl;
 
 G4Tubs *BP_subtract=new G4Tubs("Hole",0.,pRMax,17.5*cm,pSPhi,pDPhi);
 

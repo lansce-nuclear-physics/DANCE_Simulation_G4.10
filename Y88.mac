@@ -49,4 +49,4 @@
 #Y88
 /gps/ion 39 88 0 0
 
-/run/beamOn 5000
+/run/beamOn 100000

@@ -53,6 +53,9 @@
 
 #include "G4GeneralParticleSource.hh"
 #include "G4RunManager.hh"
+//#include "G4DynamicParticle.icc"
+
+//#include "G4PhysicalConstants.hh"
 
 using namespace std;
 using namespace CLHEP;
@@ -144,6 +147,8 @@ void DANCEPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 			G4double randomX = sintheta*std::cos(phi);
     			G4double randomY = sintheta*std::sin(phi);
     			G4double randomZ = costheta;
+			//G4cout << randomX << "\t" << randomY << "\t" << randomZ << "\n";
+
 		
 			G4ThreeVector v(randomX,randomY,randomZ);
     		
@@ -151,9 +156,15 @@ void DANCEPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 		
 			(*input_stream) >> Particle_Energy;
 		
-			//G4cout << Particle_Energy << "	";
-			
-			G4PrimaryParticle* g4prim= new G4PrimaryParticle(i,Particle_Energy*randomX*MeV,Particle_Energy*randomY*MeV,Particle_Energy*randomZ*MeV);
+			//G4cout << Particle_Energy << "\t"			
+
+			//new method of initializing gammas
+			G4PrimaryParticle* g4prim= new G4PrimaryParticle(22);
+			g4prim->SetKineticEnergy(Particle_Energy*MeV);
+			g4prim->SetMomentumDirection(v);
+
+			//old method of initializing gammas which gives them the wrong energy in G4.10, for some reason
+			//G4PrimaryParticle* g4prim= new G4PrimaryParticle(i,Particle_Energy*randomX*(MeV),Particle_Energy*randomY*(MeV),Particle_Energy*randomZ*(MeV));
 
 			G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
 	  		G4String particleName;
@@ -161,6 +172,13 @@ void DANCEPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
 			g4vtx->SetPrimary(g4prim);		
 		
+			//checks to make sure particles are being generated correctly
+			//G4double particleE = g4prim->GetKineticEnergy();
+			//G4cout << particleE/(MeV) << "\t";
+			
+			//G4double particleP = g4prim->GetTotalMomentum();
+			//G4cout << particleP/(MeV/(m/s)) << "\n";
+
 		}
 		anEvent->AddPrimaryVertex(g4vtx);
 		//G4cout << G4endl;

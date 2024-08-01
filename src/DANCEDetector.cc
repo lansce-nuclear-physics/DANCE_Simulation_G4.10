@@ -104,6 +104,10 @@ G4bool DANCEDetector::ProcessHits(G4Step*aStep,G4TouchableHistory* /*ROhist*/)
   G4Track *aTrack=aStep->GetTrack();
   int track_ID=aTrack->GetTrackID();
   G4ParticleDefinition *particle_def_ID=aTrack->GetDefinition();
+
+  //new
+  //G4double particleE = aStep->GetPreStepPoint()->GetKineticEnergy();
+  //cout << particleE << "	"
   
   bool Is_Stable=particle_def_ID->GetPDGStable();
   bool Is_ShortLived=particle_def_ID->IsShortLived();
@@ -159,6 +163,9 @@ G4bool DANCEDetector::ProcessHits(G4Step*aStep,G4TouchableHistory* /*ROhist*/)
   G4endl;  
   if(edep==0.) return true;
 
+  //new
+  //G4double particleE = aStep->GetPreStepPoint()->GetKineticEnergy();
+  //G4cout << particleE << "        ";
 
   G4StepPoint* preStepPoint = aStep->GetPreStepPoint();
   G4TouchableHistory* theTouchable
