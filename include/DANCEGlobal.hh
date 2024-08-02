@@ -38,9 +38,9 @@
 
 
 //#include "DANCENNNearestNeighbors.hh"
-#include <fstream>
 #include <TNamed.h>
 #include <iostream>
+#include <fstream>
 #include "G4String.hh"
 //#include "TString.h"
 
@@ -104,7 +104,7 @@ public:
 	
 // reading the Master input helper method
 
-	bool CheckForFlags(ifstream *in);
+	bool CheckForFlags( std::ifstream *in);
 	
 	void EndOfRun(){
 	
@@ -188,7 +188,7 @@ public:
 	double Q_energy;
 	double dQ_energy;
 	
-	ofstream *binary_crystal_file;
+        std::ofstream *binary_crystal_file;
 
 
 };

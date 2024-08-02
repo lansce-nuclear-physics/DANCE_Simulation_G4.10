@@ -99,7 +99,7 @@ DANCEPhysicsList::DANCEPhysicsList():  G4VModularPhysicsList()
 
   // default cut value  (1.0mm)
 //  defaultCutValue = 0.005*mm;
-  defaultCutValue = 0.005*mm;
+  defaultCutValue = 0.005*CLHEP::mm;
   SetVerboseLevel(0);
  
  
@@ -145,8 +145,8 @@ void DANCEPhysicsList::SetCuts()
   }
 
   //special for low energy physics
-  G4double lowlimit=100*eV;  
-  G4ProductionCutsTable::GetProductionCutsTable()->SetEnergyRange(lowlimit,40.*MeV);
+  G4double lowlimit=100*CLHEP::eV;  
+  G4ProductionCutsTable::GetProductionCutsTable()->SetEnergyRange(lowlimit,40.*CLHEP::MeV);
 
   // set cut values for gamma at first and for e- second and next for e+,
   // because some processes for e+/e- need cut values for gamma 
