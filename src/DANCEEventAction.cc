@@ -373,7 +373,8 @@ if(GPP->SingleGateECluster_E[2]>0){
   //Make binary output structure
   std::stringstream outfilename;
   outfilename.str();
-  outfilename << "Test2.bin";
+  // we write in the DEVT_STAGE1_WF format from 2023, so use bin23 extension.
+  outfilename << "Test2.bin23";
  
   outputbinfile.open(outfilename.str().c_str(), std::ios::out | std::ios::binary);
 
@@ -748,6 +749,7 @@ void DANCEEventAction::EndOfEventAction(const G4Event* evt)
       devt_out.Ifast = 1000;
       devt_out.Islow = 1000;
       devt_out.ID = 200;
+      // we write in the DEVT_STAGE1_WF format from 2023.
       outputbinfile.write(reinterpret_cast<char*>(&devt_out),sizeof(DEVT_STAGE1_WF));
       
       //T0 is 50 ms apart 
@@ -808,6 +810,7 @@ void DANCEEventAction::EndOfEventAction(const G4Event* evt)
     devt_out.Ifast = E_crystal_energy[i]*1000.0;
     devt_out.Islow = E_crystal_energy[i]*1000.0;
     devt_out.ID = E_crystal_ID[i];
+    // we write in the DEVT_STAGE1_WF format from 2023.
     outputbinfile.write(reinterpret_cast<char*>(&devt_out),sizeof(DEVT_STAGE1));
  
 
