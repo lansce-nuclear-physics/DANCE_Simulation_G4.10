@@ -341,9 +341,9 @@ void DANCEHadronPhysics::ConstructProcess()
   G4HadronElastic* theElasticModel1 = new G4HadronElastic;
   G4NeutronHPElastic * theElasticNeutron = new G4NeutronHPElastic;
   theNeutronElasticProcess->RegisterMe(theElasticModel1);
-  theElasticModel1->SetMinEnergy(0.01*eV);
+  theElasticModel1->SetMinEnergy(0.01*CLHEP::eV);
   theNeutronElasticProcess->RegisterMe(theElasticNeutron);
-  theElasticNeutron->SetMaxEnergy(2.*MeV);
+  theElasticNeutron->SetMaxEnergy(2.*CLHEP::MeV);
   
   G4NeutronHPElasticData * theNeutronData = new G4NeutronHPElasticData;
   theNeutronElasticProcess->AddDataSet(theNeutronData);
@@ -351,7 +351,7 @@ void DANCEHadronPhysics::ConstructProcess()
   // inelastic 
   G4NeutronHPInelastic * theHPNeutronInelasticModel =
     new G4NeutronHPInelastic;
-  theHPNeutronInelasticModel->SetMaxEnergy(2.*MeV);
+  theHPNeutronInelasticModel->SetMaxEnergy(2.*CLHEP::MeV);
   
   G4NeutronInelasticProcess *theNeutronInelastic=new G4NeutronInelasticProcess();
   
@@ -382,7 +382,7 @@ void DANCEHadronPhysics::ConstructProcess()
     new G4HadronCaptureProcess();
   G4NeutronRadCapture* theCaptureModel = new G4NeutronRadCapture();
   theCaptureProcess->RegisterMe(theCaptureModel);
-  theCaptureModel->SetMinEnergy(0.01*eV);
+  theCaptureModel->SetMinEnergy(0.01*CLHEP::eV);
   G4NeutronHPCapture * theHPNeutronCaptureModel = new G4NeutronHPCapture();
   theCaptureProcess->RegisterMe(theHPNeutronCaptureModel);
   G4NeutronHPCaptureData * theNeutronData3 = new G4NeutronHPCaptureData();
