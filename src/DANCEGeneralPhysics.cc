@@ -69,6 +69,7 @@
 
 #include "globals.hh"
 #include "G4ios.hh"
+#include "G4IonTable.hh"
 #include <iomanip>
 
 DANCEGeneralPhysics::DANCEGeneralPhysics(const G4String& name)
@@ -138,7 +139,8 @@ void DANCEGeneralPhysics::ConstructProcess()
   //while( (*theParticleIterator)() ){
   //  G4ParticleDefinition* particle = theParticleIterator->value();
   //  G4ProcessManager* pmanager = particle->GetProcessManager();
-  aParticleIterator->reset();
+   auto aParticleIterator=GetParticleIterator();
+   aParticleIterator->reset();
   while( (*aParticleIterator)() ){
     G4ParticleDefinition* particle = aParticleIterator->value();
     G4ProcessManager* pmanager = particle->GetProcessManager();
@@ -156,6 +158,7 @@ void DANCEGeneralPhysics::ConstructProcess()
   //
   const G4IonTable *theIonTable = G4ParticleTable::GetParticleTable()->GetIonTable();
 
+  //auto *theIonTable=G4ParticleTable::GetParticleTable()->GetIonTable();
   G4RadioactiveDecay*  theRadioactiveDecay = new G4RadioactiveDecay();
   for (G4int i=0; i<theIonTable->Entries(); i++)
     {
