@@ -1,4 +1,9 @@
-# We start with Github defaults for compilation files, executables, etc
+# Start with project-specific ignores
+
+DICEBOX_DANCE
+
+
+# Now Github defaults for compilation files, executables, etc
 
 # Prerequisites
 *.d
@@ -55,3 +60,7 @@ bin
 *.so
 *.o
 .depend
+CMakeCache.txt
+CMakeFiles
+Makefile
+cmake_install.cmake
