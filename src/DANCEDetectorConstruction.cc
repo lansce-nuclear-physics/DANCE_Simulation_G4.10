@@ -626,9 +626,16 @@ if(GPP->BeamPipeVacuum){
 //  BeamPipeVacuum_log->SetVisAttributes(BeamPipeVA);
 
 //RTH
+// RTH sits inside the beam pipe: with vacuum in the pipe it must be a daughter of the vacuum
+// (same axis, so no extra rotation), otherwise it overlaps the vacuum and outgoing particles miss it
 
   RTH_log= new G4LogicalVolume(RTH,Al,"RTH_log",0,0,0);
+if(GPP->BeamPipeVacuum){
+  RTH_phys = new G4PVPlacement(0,G4ThreeVector(0,0,0),RTH_log,"RTH",BeamPipeVacuum_log,false,0);
+}
+else{
   RTH_phys = new G4PVPlacement(BeamPipeRM,G4ThreeVector(0,0,0),RTH_log,"RTH",experimentalHall_log,false,0);
+}
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
